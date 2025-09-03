@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BimserProject.Business\BimserProject.Business.csproj" />
+    <ProjectReference Include="..\BimserProject.Core\BimserProject.Core.csproj" />
+    <ProjectReference Include="..\BimserProject.Data\BimserProject.Data.csproj" />
   </ItemGroup>
 
 </Project>
