@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -20,16 +20,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\DTOs\" />
-    <Folder Include="Core\Interfaces\" />
-    <Folder Include="Data\contexts\" />
-    <Folder Include="Data\Repositories\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\Service\" />
+    <ProjectReference Include="..\BimserProject.Business\BimserProject.Business.csproj" />
   </ItemGroup>
 
 </Project>
