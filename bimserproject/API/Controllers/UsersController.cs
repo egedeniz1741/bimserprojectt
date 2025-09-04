@@ -6,16 +6,10 @@ namespace bimserproject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController(IUserService userService) : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserService _userService = userService;
 
-        public UsersController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
-        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {

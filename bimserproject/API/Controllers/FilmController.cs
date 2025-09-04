@@ -6,14 +6,9 @@ namespace bimserproject.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FilmController : Controller
+    public class FilmController(IFilmService filmService) : Controller
     {
-        private readonly IFilmService _filmService;
-        public FilmController(IFilmService filmService)
-        {
-            _filmService = filmService;
-        }
-
+        private readonly IFilmService _filmService = filmService;
 
         [HttpGet]
         public async Task<IActionResult> GetAllFilms()

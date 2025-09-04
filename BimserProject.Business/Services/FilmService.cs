@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace BimserProject.Business.Services
 {
-    public class FilmService : IFilmService
+    public class FilmService(IFilmRepository filmRepository) : IFilmService
     {
-        private readonly IFilmRepository _filmRepository;
-
-        public FilmService(IFilmRepository filmRepository)
-        {
-            _filmRepository = filmRepository;
-        }
+        private readonly IFilmRepository _filmRepository = filmRepository;
 
         public async Task<Film> GetFilmByIdAsync(int id)
         {
