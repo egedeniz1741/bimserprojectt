@@ -1,4 +1,6 @@
-﻿namespace BimserProject.Core.Entities
+﻿using BimserProject.Core.Core.Entities;
+
+namespace BimserProject.Core.Entities
  
 {
  public class User

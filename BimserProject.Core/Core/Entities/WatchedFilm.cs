@@ -1,4 +1,6 @@
-﻿namespace BimserProject.Core.Entities
+﻿using BimserProject.Core.Entities;
+
+namespace BimserProject.Core.Core.Entities
 {
     public class WatchedFilm
     {

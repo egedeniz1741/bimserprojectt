@@ -1,6 +1,6 @@
-﻿using BimserProject.Core.Core.Interfaces.Repositories;
+﻿using BimserProject.Core.Core.Entities;
+using BimserProject.Core.Core.Interfaces.Repositories;
 using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
