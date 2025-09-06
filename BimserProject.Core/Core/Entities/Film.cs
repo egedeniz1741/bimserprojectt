@@ -1,6 +1,4 @@
-﻿using BimserProject.Core.Core.Entities;
-
-namespace BimserProject.Core.Entities
+﻿namespace BimserProject.Core.Core.Entities
 {
     public class Film
     {

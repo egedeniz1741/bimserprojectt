@@ -1,5 +1,4 @@
 ﻿using BimserProject.Core.Core.Interfaces.Repositories;
-using BimserProject.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BimserProject.Data.Data.contexts;
 using Microsoft.EntityFrameworkCore;
+using BimserProject.Core.Core.Entities;
 
 namespace BimserProject.Data.Data.Repositories
 {

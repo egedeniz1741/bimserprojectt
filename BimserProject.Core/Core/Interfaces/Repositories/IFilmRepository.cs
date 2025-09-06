@@ -1,4 +1,4 @@
-﻿using BimserProject.Core.Entities;
+﻿using BimserProject.Core.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
