@@ -32,7 +32,8 @@ namespace bimserproject.API.Controllers
 
          public async Task<ActionResult<Film>> PostFilm(Film film)
          {
-            if (film == null)
+
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -43,6 +44,10 @@ namespace bimserproject.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFilm(int id, Film film)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (id != film.Id)
             {
                 return BadRequest();

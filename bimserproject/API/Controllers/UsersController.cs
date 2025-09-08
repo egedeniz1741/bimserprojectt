@@ -1,5 +1,5 @@
 ﻿using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Core.Entities;
+using BimserProject.Core.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bimserproject.API.Controllers
@@ -35,6 +35,10 @@ namespace bimserproject.API.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             await _userService.AddUserAsync(user);
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
         }
@@ -43,6 +47,11 @@ namespace bimserproject.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != user.Id)
             {
                 return BadRequest();
