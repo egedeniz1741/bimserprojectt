@@ -1,6 +1,7 @@
 ﻿using BimserProject.Core.Core.Entities;
 using BimserProject.Core.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using BimserProject.Core.Core.DTOs;
 
 namespace bimserproject.API.Controllers
 {
@@ -18,13 +19,15 @@ namespace bimserproject.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetFilmById(int id)
+        public async Task<ActionResult<FilmDto>> GetFilm(int id)
         {
-            var film = await _filmService.GetFilmByIdAsync(id);
+            var film = await _filmService.GetFilmWithWatchedUsersAsync(id);
+
             if (film == null)
             {
                 return NotFound();
             }
+
             return Ok(film);
         }
 
@@ -38,7 +41,7 @@ namespace bimserproject.API.Controllers
                 return BadRequest();
             }
             await _filmService.AddFilmAsync(film);
-            return CreatedAtAction(nameof(GetFilmById), new { id = film.Id }, film);
+            return CreatedAtAction(nameof(GetFilm), new { id = film.Id }, film);
          }
 
         [HttpPut("{id}")]

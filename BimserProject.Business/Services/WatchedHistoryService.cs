@@ -1,37 +1,66 @@
-﻿using BimserProject.Core.Core.Entities;
+﻿using BimserProject.Core.Core.DTOs;
+using BimserProject.Core.Core.Entities;
 using BimserProject.Core.Core.Interfaces.Repositories;
 using BimserProject.Core.Core.Interfaces.Services;
+using BimserProject.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BimserProject.Business.Services
 {
-    public class WatchedFilmService : IWatchHistoryService
+    public class WatchedFilmService(IWatchHistoryRepository watchedFilmRepository, IUserRepository userRepository) : IWatchHistoryService
     {
-        private readonly IWatchHistoryRepository _watchedFilmRepository;
-
-        public WatchedFilmService(IWatchHistoryRepository watchedFilmRepository)
-        {
-            _watchedFilmRepository = watchedFilmRepository;
-        }
+        private readonly IWatchHistoryRepository _watchedFilmRepository = watchedFilmRepository;
+        private readonly IUserRepository _userRepository = userRepository;
 
         public async Task MarkFilmAsWatchedAsync(int userId, int filmId)
         {
-            var watchedFilm = new WatchedFilm
+            var alreadyWatched = await _watchedFilmRepository.HasUserWatchedFilmAsync(userId, filmId);
+
+            if (!alreadyWatched)
             {
-                UserId = userId,
-                FilmId = filmId,
-                WatchedAt = DateTime.UtcNow
-            };
-            await _watchedFilmRepository.AddAsync(watchedFilm);
+                var watchedFilm = new WatchedFilm
+                {
+                    UserId = userId,
+                    FilmId = filmId,
+                    WatchedAt = DateTime.UtcNow
+                };
+                await _watchedFilmRepository.AddAsync(watchedFilm);
+            }
         }
 
         public async Task<List<WatchedFilm>> GetUserWatchedFilmsAsync(int userId)
         {
             return await _watchedFilmRepository.GetByUserIdAsync(userId);
+        }
+
+        public async Task<UserWatchedFilmsDto> GetUserWatchedFilmsWithDetailsAsync(int userId)
+        {
+            var watchedFilms = await _watchedFilmRepository.GetByUserIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return new UserWatchedFilmsDto
+            {
+                UserId = user.Id,
+                Username = user.Username,
+                WatchedFilms = [.. watchedFilms.Select(wf => new WatchedFilmDetailDto
+                {
+                    FilmId = wf.FilmId,
+                    FilmTitle = wf.Film.Title,
+                    FilmYear = wf.Film.Year,
+                    FilmDirector = wf.Film.Director,
+                    WatchedAt = wf.WatchedAt
+                })]
+            };
         }
     }
 }

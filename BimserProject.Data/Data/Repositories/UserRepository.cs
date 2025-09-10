@@ -16,12 +16,18 @@ namespace BimserProject.Data.Data.Repositories
 
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+        .Include(u => u.WatchedFilms)
+            .ThenInclude(wf => wf.Film)
+        .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<List<User>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+           .Include(u => u.WatchedFilms)
+           .ThenInclude(wf => wf.Film)
+           .ToListAsync();
         }
 
         public async Task AddAsync(User user)

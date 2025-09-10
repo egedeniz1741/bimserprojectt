@@ -1,4 +1,5 @@
-﻿using BimserProject.Core.Core.Entities;
+﻿using BimserProject.Core.Core.DTOs;
+using BimserProject.Core.Core.Entities;
 using BimserProject.Core.Core.Interfaces.Repositories;
 using BimserProject.Core.Core.Interfaces.Services;
 using System;
@@ -36,6 +37,34 @@ namespace BimserProject.Business.Services
         public async Task DeleteFilmAsync(int id)
         {
             await _filmRepository.DeleteAsync(id);
+        }
+
+        public async Task<FilmDto?> GetFilmWithWatchedUsersAsync(int id)
+        {
+            var film = await _filmRepository.GetByIdAsync(id);
+
+            if (film == null)
+                return null;
+
+            return new FilmDto
+            {
+                Id = film.Id,
+                Title = film.Title,
+                Year = film.Year,
+                Director = film.Director,
+                
+                WatchedByUsers = film.WatchedByUsers?.Select(w => new WatchedByUserDto
+                {
+                    UserId = w.UserId,
+                    WatchedAt = w.WatchedAt,
+                    User = new UserInfoDto
+                    {
+                        Id = w.User.Id,
+                        Username = w.User.Username,
+                        Email = w.User.Email
+                    }
+                }).ToList()
+            };
         }
     }
 }

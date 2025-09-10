@@ -10,18 +10,30 @@ using BimserProject.Core.Core.Entities;
 
 namespace BimserProject.Data.Data.Repositories
 {
-    public class FilmRepository(AppDbContext context) : IFilmRepository
-    {
-        private readonly AppDbContext _context = context;
 
-        public async Task<Film?> GetByIdAsync(int id)
+    public class FilmRepository : IFilmRepository
+    {
+        private readonly AppDbContext _context;
+
+        public FilmRepository(AppDbContext context)
         {
-            return await _context.Films.FindAsync(id);
+            _context = context;
+        }
+
+        public async Task<Film> GetByIdAsync(int id)
+        {
+            return await _context.Films
+                .Include(f => f.WatchedByUsers)
+                    .ThenInclude(w => w.User)  
+                .FirstOrDefaultAsync(f => f.Id == id);
         }
 
         public async Task<List<Film>> GetAllAsync()
         {
-            return await _context.Films.ToListAsync();
+            return await _context.Films
+                .Include(f => f.WatchedByUsers)
+                    .ThenInclude(w => w.User)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Film film)

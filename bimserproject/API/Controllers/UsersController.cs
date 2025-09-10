@@ -1,5 +1,6 @@
-﻿using BimserProject.Core.Core.Interfaces.Services;
+﻿using BimserProject.Core.Core.DTOs;
 using BimserProject.Core.Core.Entities;
+using BimserProject.Core.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bimserproject.API.Controllers
@@ -69,7 +70,20 @@ namespace bimserproject.API.Controllers
             return NoContent();
         }
 
-        
-      
+        [HttpGet("{id}/watched")]
+        public async Task<ActionResult<List<WatchedFilmSimpleDto>>> GetUserWatchedFilms(int id)
+        {
+            var user = await _userService.GetUserWithWatchedFilmsAsync(id);
+
+            if (user == null || user.WatchedFilms == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user.WatchedFilms);
+        }
+
+
+
     }
 }

@@ -7,16 +7,10 @@ namespace bimserproject.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WatchedHistoryController : ControllerBase
+    public class WatchedHistoryController(IWatchHistoryService watchedFilmService) : ControllerBase
     {
-        private readonly IWatchHistoryService _watchedFilmService;
+        private readonly IWatchHistoryService _watchedFilmService = watchedFilmService;
 
-        public WatchedHistoryController(IWatchHistoryService watchedFilmService)
-        {
-            _watchedFilmService = watchedFilmService;
-        }
-
-        
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<WatchedFilm>>> GetUserWatchedHistory(int userId)
         {
@@ -24,12 +18,12 @@ namespace bimserproject.API.Controllers
             return Ok(watchedFilms);
         }
 
-        
-        [HttpPost]
+
+        [HttpPost("user/{userId}/film/{filmId}")]
         public async Task<ActionResult> MarkFilmAsWatched(int userId, int filmId)
         {
             await _watchedFilmService.MarkFilmAsWatchedAsync(userId, filmId);
-            return Ok();
+            return Ok(new { message = "Film izlendi olarak işaretlendi" });
         }
     }
 }

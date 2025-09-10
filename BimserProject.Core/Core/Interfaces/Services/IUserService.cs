@@ -1,4 +1,5 @@
-﻿using BimserProject.Core.Core.Entities;
+﻿using BimserProject.Core.Core.DTOs;
+using BimserProject.Core.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace BimserProject.Core.Core.Interfaces.Services
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
         Task<User> AuthenticateAsync(string username, string password);
+
+        Task<UserDto> GetUserWithWatchedFilmsAsync(int id);
     }
 }

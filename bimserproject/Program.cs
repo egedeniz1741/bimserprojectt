@@ -1,15 +1,21 @@
 using BimserProject.Business.Services;
+using BimserProject.Core.Core.Interfaces;
 using BimserProject.Core.Core.Interfaces.Repositories;
 using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Core.Core.Interfaces;
 using BimserProject.Data.Data.contexts;
 using BimserProject.Data.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
