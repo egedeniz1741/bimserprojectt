@@ -43,12 +43,9 @@ namespace BimserProject.Business.Services
             var watchedFilms = await _watchedFilmRepository.GetByUserIdAsync(userId);
             var user = await _userRepository.GetByIdAsync(userId);
 
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
-
-            return new UserWatchedFilmsDto
+            return user == null
+                ? throw new Exception("User not found")
+                : new UserWatchedFilmsDto
             {
                 UserId = user.Id,
                 Username = user.Username,

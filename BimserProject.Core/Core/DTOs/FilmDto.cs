@@ -15,15 +15,17 @@ namespace BimserProject.Core.Core.DTOs
         public string Director { get; set; }
       
 
-        [JsonIgnore] 
+      
         public List<WatchedByUserDto> WatchedByUsers { get; set; }
     }
 
     public class WatchedByUserDto
     {
         public int UserId { get; set; }
+
+        public string UserName { get; set; }
         public DateTime WatchedAt { get; set; }
-        public UserInfoDto User { get; set; }
+       
     }
 
     public class UserInfoDto

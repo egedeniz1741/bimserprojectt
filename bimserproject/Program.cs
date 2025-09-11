@@ -1,15 +1,37 @@
 using BimserProject.Business.Services;
-using BimserProject.Core.Core.Interfaces;
 using BimserProject.Core.Core.Interfaces.Repositories;
 using BimserProject.Core.Core.Interfaces.Services;
 using BimserProject.Data.Data.contexts;
 using BimserProject.Data.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var secretKey = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(secretKey)
+    };
+});
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -25,13 +47,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IWatchHistoryRepository, WatchHistoryRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Services
+
 builder.Services.AddScoped<IFilmService, FilmService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWatchHistoryService, WatchedFilmService>();
 
-// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

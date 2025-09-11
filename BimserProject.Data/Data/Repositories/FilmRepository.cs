@@ -11,16 +11,11 @@ using BimserProject.Core.Core.Entities;
 namespace BimserProject.Data.Data.Repositories
 {
 
-    public class FilmRepository : IFilmRepository
+    public class FilmRepository(AppDbContext context) : IFilmRepository
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context = context;
 
-        public FilmRepository(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task<Film> GetByIdAsync(int id)
+        public async Task<Film?> GetByIdAsync(int id)
         {
             return await _context.Films
                 .Include(f => f.WatchedByUsers)

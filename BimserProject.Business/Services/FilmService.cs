@@ -52,17 +52,11 @@ namespace BimserProject.Business.Services
                 Title = film.Title,
                 Year = film.Year,
                 Director = film.Director,
-                
+
                 WatchedByUsers = film.WatchedByUsers?.Select(w => new WatchedByUserDto
                 {
                     UserId = w.UserId,
-                    WatchedAt = w.WatchedAt,
-                    User = new UserInfoDto
-                    {
-                        Id = w.User.Id,
-                        Username = w.User.Username,
-                        Email = w.User.Email
-                    }
+                    UserName = w.User.Username
                 }).ToList()
             };
         }
