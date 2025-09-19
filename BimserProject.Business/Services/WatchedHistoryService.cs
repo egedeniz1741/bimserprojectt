@@ -1,13 +1,8 @@
-﻿using BimserProject.Core.Core.DTOs;
-using BimserProject.Core.Core.Entities;
-using BimserProject.Core.Core.Interfaces.Repositories;
-using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Data.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BimserProject.Core.DTOs;
+using BimserProject.Core.Entities;
+using BimserProject.Core.Interfaces.Repositories;
+using BimserProject.Core.Interfaces.Services;
+
 
 
 namespace BimserProject.Business.Services

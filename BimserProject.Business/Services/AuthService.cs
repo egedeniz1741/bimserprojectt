@@ -1,5 +1,5 @@
-﻿using BimserProject.Core.Core.Entities;
-using BimserProject.Core.Core.Interfaces.Services;
+﻿using BimserProject.Core.Entities;
+using BimserProject.Core.Interfaces.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,14 +8,9 @@ using System.Text;
 
 namespace BimserProject.Business.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService(IConfiguration configuration) : IAuthService
     {
-        private readonly IConfiguration _configuration;
-
-        public AuthService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        private readonly IConfiguration _configuration = configuration;
 
         public string GenerateJwtToken(User user)
         {

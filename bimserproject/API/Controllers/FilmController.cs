@@ -1,7 +1,7 @@
-﻿using BimserProject.Core.Core.Entities;
-using BimserProject.Core.Core.Interfaces.Services;
-using Microsoft.AspNetCore.Mvc;
-using BimserProject.Core.Core.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
+using BimserProject.Core.DTOs;
+using BimserProject.Core.Interfaces.Services;
+using BimserProject.Core.Entities;
 
 namespace bimserproject.API.Controllers
 {

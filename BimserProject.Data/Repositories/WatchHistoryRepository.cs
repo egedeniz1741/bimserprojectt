@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BimserProject.Core.Core.Interfaces.Repositories;
-using BimserProject.Data.Data.contexts;
+﻿
 using Microsoft.EntityFrameworkCore;
-using BimserProject.Core.Core.Entities;
+using BimserProject.Core.Interfaces.Repositories;
+using BimserProject.Core.Entities;
+using BimserProject.Data.contexts;
 
-namespace BimserProject.Data.Data.Repositories
+namespace BimserProject.Data.Repositories
 {
     public class WatchHistoryRepository(AppDbContext context) : IWatchHistoryRepository
     {

@@ -1,9 +1,8 @@
-﻿using BimserProject.Business.Services;
-using BimserProject.Core.Core.DTOs;
-using BimserProject.Core.Core.Entities;
-using BimserProject.Core.Core.Interfaces.Services;
+﻿
+using BimserProject.Core.DTOs;
+using BimserProject.Core.Entities;
+using BimserProject.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace bimserproject.API.Controllers

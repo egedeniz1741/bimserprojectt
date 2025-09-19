@@ -1,8 +1,8 @@
 using BimserProject.Business.Services;
-using BimserProject.Core.Core.Interfaces.Repositories;
-using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Data.Data.contexts;
-using BimserProject.Data.Data.Repositories;
+using BimserProject.Core.Interfaces.Repositories;
+using BimserProject.Core.Interfaces.Services;
+using BimserProject.Data.contexts;
+using BimserProject.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

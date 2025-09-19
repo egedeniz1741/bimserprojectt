@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Microsoft.EntityFrameworkCore;
-using BimserProject.Core.Core.Entities;
+using BimserProject.Core.Entities;
 
 
-namespace BimserProject.Data.Data.contexts
+namespace BimserProject.Data.contexts
 {
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {

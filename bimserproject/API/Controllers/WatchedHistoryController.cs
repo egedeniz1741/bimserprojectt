@@ -1,7 +1,7 @@
 ﻿using BimserProject.Business.Services;
 using Microsoft.AspNetCore.Mvc;
-using BimserProject.Core.Core.Interfaces.Services;
-using BimserProject.Core.Core.Entities;
+using BimserProject.Core.Interfaces.Services;
+using BimserProject.Core.Entities;
 
 namespace bimserproject.API.Controllers
 {

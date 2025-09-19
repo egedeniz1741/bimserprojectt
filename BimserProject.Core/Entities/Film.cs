@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BimserProject.Core.Core.Entities
+namespace BimserProject.Core.Entities
 {
     public class Film
     {
