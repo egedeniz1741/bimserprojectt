@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using BimserProject.Core.Interfaces.Services;
 using BimserProject.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace bimserproject.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace bimserproject.API.Controllers
             return Ok(watchedFilms);
         }
 
-
+        [Authorize]
         [HttpPost("user/{userId}/film/{filmId}")]
         public async Task<ActionResult> MarkFilmAsWatched(int userId, int filmId)
         {

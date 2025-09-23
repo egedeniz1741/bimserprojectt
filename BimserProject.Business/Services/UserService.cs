@@ -3,6 +3,8 @@ using BimserProject.Core.DTOs;
 using BimserProject.Core.Interfaces.Repositories;
 using BimserProject.Core.Interfaces.Services;
 using BimserProject.Core.Entities;
+using BCrypt.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BimserProject.Business.Services
 {
@@ -22,6 +24,7 @@ namespace BimserProject.Business.Services
 
         public async Task AddUserAsync(User user)
         {
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
             await _userRepository.AddAsync(user);
         }
 
@@ -35,9 +38,14 @@ namespace BimserProject.Business.Services
             await _userRepository.DeleteAsync(id);
         }
 
-        public async Task<User> AuthenticateAsync(string username, string password)
+        public async Task<User?> AuthenticateAsync(string username, string password)
         {
             var user = await _userRepository.GetByUsernameAsync(username);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            {
+                return null;
+            }
 
             return user;
         }

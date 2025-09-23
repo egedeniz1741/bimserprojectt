@@ -93,7 +93,9 @@ namespace bimserproject.API.Controllers
             var user = await _userService.AuthenticateAsync(request.UserName, request.Password);
 
             if (user == null)
+            {
                 return Unauthorized();
+            }
 
             var token = _authService.GenerateJwtToken(user);
 

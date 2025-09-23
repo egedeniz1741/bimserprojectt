@@ -2,6 +2,7 @@
 using BimserProject.Core.DTOs;
 using BimserProject.Core.Interfaces.Services;
 using BimserProject.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace bimserproject.API.Controllers
 {
@@ -30,11 +31,11 @@ namespace bimserproject.API.Controllers
 
             return Ok(film);
         }
-
+        [Authorize]
         [HttpPost]
 
-         public async Task<ActionResult<Film>> PostFilm(Film film)
-         {
+        public async Task<ActionResult<Film>> PostFilm(Film film)
+        {
 
             if (!ModelState.IsValid)
             {
@@ -42,8 +43,9 @@ namespace bimserproject.API.Controllers
             }
             await _filmService.AddFilmAsync(film);
             return CreatedAtAction(nameof(GetFilm), new { id = film.Id }, film);
-         }
+        }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFilm(int id, Film film)
         {
@@ -59,7 +61,7 @@ namespace bimserproject.API.Controllers
             await _filmService.UpdateFilmAsync(film);
             return NoContent();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFilm(int id)
         {
