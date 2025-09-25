@@ -10,7 +10,7 @@ namespace BimserProject.Data.Repositories
     {
         private readonly AppDbContext _context = context;
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _context.Users
         .Include(u => u.WatchedFilms)
@@ -38,7 +38,7 @@ namespace BimserProject.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user != null)

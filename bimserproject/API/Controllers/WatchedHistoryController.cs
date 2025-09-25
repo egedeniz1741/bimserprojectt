@@ -13,15 +13,15 @@ namespace bimserproject.API.Controllers
         private readonly IWatchHistoryService _watchedFilmService = watchedFilmService;
 
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<WatchedFilm>>> GetUserWatchedHistory(int userId)
+        public async Task<ActionResult<IEnumerable<WatchedFilm>>> GetUserWatchedHistory(Guid userId)
         {
             var watchedFilms = await _watchedFilmService.GetUserWatchedFilmsAsync(userId);
             return Ok(watchedFilms);
         }
 
         [Authorize]
-        [HttpPost("user/{userId}/film/{filmId}")]
-        public async Task<ActionResult> MarkFilmAsWatched(int userId, int filmId)
+        [HttpPost("users/{userId}/film/{filmId}")]
+        public async Task<ActionResult> MarkFilmAsWatched(Guid userId, int filmId)
         {
             await _watchedFilmService.MarkFilmAsWatchedAsync(userId, filmId);
             return Ok(new { message = "Film izlendi olarak işaretlendi" });

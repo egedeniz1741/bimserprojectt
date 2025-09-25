@@ -10,7 +10,7 @@ namespace BimserProject.Core.Interfaces.Repositories
     public interface IWatchHistoryRepository
     {
         Task AddAsync(WatchedFilm watchedFilm);
-        Task<List<WatchedFilm>> GetByUserIdAsync(int userId);
-        Task<bool> HasUserWatchedFilmAsync(int userId, int filmId);
+        Task<List<WatchedFilm>> GetByUserIdAsync(Guid userId);
+        Task<bool> HasUserWatchedFilmAsync(Guid userId, int filmId);
     }
 }

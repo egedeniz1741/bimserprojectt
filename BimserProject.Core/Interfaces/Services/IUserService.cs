@@ -10,13 +10,13 @@ namespace BimserProject.Core.Interfaces.Services
 {
     public interface IUserService
     {
-        Task<User> GetUserByIdAsync(int id);
+        Task<User> GetUserByIdAsync(Guid id);
         Task<List<User>> GetAllUsersAsync();
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
-        Task DeleteUserAsync(int id);
+        Task DeleteUserAsync(Guid id);
         Task<User> AuthenticateAsync(string username, string password);
 
-        Task<UserDto> GetUserWithWatchedFilmsAsync(int id);
+        Task<UserDto> GetUserWithWatchedFilmsAsync(Guid id);
     }
 }

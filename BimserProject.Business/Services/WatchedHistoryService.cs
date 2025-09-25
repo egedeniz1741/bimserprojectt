@@ -12,7 +12,7 @@ namespace BimserProject.Business.Services
         private readonly IWatchHistoryRepository _watchedFilmRepository = watchedFilmRepository;
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task MarkFilmAsWatchedAsync(int userId, int filmId)
+        public async Task MarkFilmAsWatchedAsync(Guid userId, int filmId)
         {
             var alreadyWatched = await _watchedFilmRepository.HasUserWatchedFilmAsync(userId, filmId);
 
@@ -28,12 +28,12 @@ namespace BimserProject.Business.Services
             }
         }
 
-        public async Task<List<WatchedFilm>> GetUserWatchedFilmsAsync(int userId)
+        public async Task<List<WatchedFilm>> GetUserWatchedFilmsAsync(Guid userId)
         {
             return await _watchedFilmRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<UserWatchedFilmsDto> GetUserWatchedFilmsWithDetailsAsync(int userId)
+        public async Task<UserWatchedFilmsDto> GetUserWatchedFilmsWithDetailsAsync(Guid userId)
         {
             var watchedFilms = await _watchedFilmRepository.GetByUserIdAsync(userId);
             var user = await _userRepository.GetByIdAsync(userId);

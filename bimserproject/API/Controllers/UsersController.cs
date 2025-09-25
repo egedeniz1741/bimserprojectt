@@ -1,4 +1,5 @@
 ﻿
+using Azure.Messaging;
 using BimserProject.Core.DTOs;
 using BimserProject.Core.Entities;
 using BimserProject.Core.Interfaces.Services;
@@ -24,7 +25,7 @@ namespace bimserproject.API.Controllers
 
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);
 
@@ -50,7 +51,7 @@ namespace bimserproject.API.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(Guid id, User user)
         {
             if (!ModelState.IsValid)
             {
@@ -68,14 +69,14 @@ namespace bimserproject.API.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userService.DeleteUserAsync(id);
             return NoContent();
         }
 
         [HttpGet("{id}/watched")]
-        public async Task<ActionResult<List<WatchedFilmSimpleDto>>> GetUserWatchedFilms(int id)
+        public async Task<ActionResult<List<WatchedFilmSimpleDto>>> GetUserWatchedFilms(Guid id)
         {
             var user = await _userService.GetUserWithWatchedFilmsAsync(id);
 
@@ -88,6 +89,7 @@ namespace bimserproject.API.Controllers
         }
         
         [HttpPost("login")]
+        
         public async Task<ActionResult> Login(LoginRequestDTO request)
         {
             var user = await _userService.AuthenticateAsync(request.UserName, request.Password);

@@ -9,8 +9,8 @@ namespace BimserProject.Core.Interfaces.Services
 {
     public interface IWatchHistoryService
     {
-        Task MarkFilmAsWatchedAsync(int userId, int filmId);
-        Task<List<WatchedFilm>> GetUserWatchedFilmsAsync(int userId);
+        Task MarkFilmAsWatchedAsync(Guid userId, int filmId);
+        Task<List<WatchedFilm>> GetUserWatchedFilmsAsync(Guid userId);
 
     }
 }

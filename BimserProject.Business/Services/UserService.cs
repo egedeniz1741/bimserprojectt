@@ -12,7 +12,7 @@ namespace BimserProject.Business.Services
     {
         private readonly IUserRepository _userRepository = userRepository;
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
             return await _userRepository.GetByIdAsync(id);
         }
@@ -33,7 +33,7 @@ namespace BimserProject.Business.Services
             await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteUserAsync(Guid id)
         {
             await _userRepository.DeleteAsync(id);
         }
@@ -50,7 +50,7 @@ namespace BimserProject.Business.Services
             return user;
         }
 
-        public async Task<UserDto?> GetUserWithWatchedFilmsAsync(int id)
+        public async Task<UserDto?> GetUserWithWatchedFilmsAsync(Guid id)
         {
             var user = await _userRepository.GetByIdAsync(id);
 

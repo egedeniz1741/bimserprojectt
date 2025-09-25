@@ -16,7 +16,7 @@ namespace BimserProject.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<WatchedFilm>> GetByUserIdAsync(int userId)
+        public async Task<List<WatchedFilm>> GetByUserIdAsync(Guid userId)
         {
             return await _context.WatchedFilms
                 .Include(wf => wf.Film)
@@ -25,7 +25,7 @@ namespace BimserProject.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> HasUserWatchedFilmAsync(int userId, int filmId)
+        public async Task<bool> HasUserWatchedFilmAsync(Guid userId, int filmId)
         {
             return await _context.WatchedFilms .AnyAsync(wf => wf.UserId == userId && wf.FilmId == filmId);
         }
